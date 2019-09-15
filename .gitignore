@@ -137,7 +137,7 @@ dmypy.json
 .pyre/
 
 # data
-.idea
+.idea/
 
 # google colab
 Google_colab/.ipynb_checkpoints

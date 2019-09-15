@@ -76,3 +76,4 @@ model.compile(
 history = model.fit(train_dataset, workers=4, epochs=2)
 
 model.evaluate(test_dataset, workers=4)
+

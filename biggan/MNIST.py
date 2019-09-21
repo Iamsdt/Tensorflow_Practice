@@ -9,16 +9,16 @@ RNG = np.random.RandomState(42)
 logger = logging.getLogger(__name__)
 
 
-def get_train(label, centered=False):
+def get_train(centered=False):
     """Get training dataset for MNIST"""
     # return _get_adapted_dataset("train", label, centered=centered)
-    return prepare_data("train", label, centered)
+    return prepare_data("train", centered)
 
 
-def get_test(label, centered=False):
+def get_test(centered=False):
     """Get testing dataset for MNIST"""
     # return _get_adapted_dataset("test", label, centered=centered)
-    prepare_data('test', label, centered)
+    prepare_data('test', centered)
 
 
 def get_shape_input():
@@ -45,11 +45,10 @@ def prepare_data(split, label=None, centered=False, flatten=False):
     (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
     if split == 'train':
-
         if centered:
             x_train = x_train * 2. - 1.
-
         return x_train, y_train
+
     elif split == 'test':
         if centered:
             x_test = x_train * 2. - 1.

@@ -73,9 +73,9 @@ def train_and_test(nb_epochs, weight, method, degree, random_seed, label):
     learning_rate = tf.placeholder(tf.float32, shape=(), name="lr_pl")
 
     # Data
-    trainx, trainy = data.get_train(label, True)
+    trainx, trainy = data.get_train(True)
     trainx_copy = trainx.copy()
-    testx, testy = data.get_test(label, True)
+    testx, testy = data.get_test(True)
 
     # Parameters
     starting_lr = network.learning_rate
@@ -327,9 +327,13 @@ def train_and_test(nb_epochs, weight, method, degree, random_seed, label):
         print("Testing | PRC AUC = {:.4f}".format(prc_auc))
 
 
-def run(nb_epochs, weight, method, degree, label, random_seed=42):
+def run(nb_epochs, weight, method, degree, random_seed=42):
+
+    label = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+
     """ Runs the training process"""
     with tf.Graph().as_default():
         # Set the graph level seed
         tf.set_random_seed(random_seed)
         train_and_test(nb_epochs, weight, method, degree, random_seed, label)
+

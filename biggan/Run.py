@@ -4,9 +4,11 @@ import tensorflow as tf
 import logging
 import importlib
 import sys
-import biggan.Network as network
-import biggan.MNIST as data
-from biggan.Evulation import do_prc
+
+#
+import Network as network
+import MNIST as data
+from Evulation import do_prc
 from sklearn.metrics import precision_recall_fscore_support
 
 

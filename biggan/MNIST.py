@@ -47,11 +47,15 @@ def prepare_data(split, label=None, centered=False, flatten=False):
     if split == 'train':
         if centered:
             x_train = x_train * 2. - 1.
+
+        print("Train: ", len(x_train))
         return x_train, y_train
 
     elif split == 'test':
         if centered:
-            x_test = x_train * 2. - 1.
+            x_test = x_test * 2. - 1.
+
+        print("Test: ", len(x_test))
         return x_test, y_test
 
 

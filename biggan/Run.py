@@ -23,6 +23,7 @@ def get_getter(ema):  # to update neural net with moving avg variables, suitable
 
     return ema_getter
 
+
 def display_parameters(batch_size, starting_lr, ema_decay,
                        weight, method, degree, label):
     '''See parameters
@@ -46,7 +47,7 @@ def display_progression_epoch(j, id_max):
 
 def create_logdir(method, weight, label, rd):
     """ Directory to save training logs, weights, biases, etc."""
-    return "bigan/train_logs/mnist/{}/{}/{}/{}".format(weight, method, label, rd)
+    return "bigan/train_logs/cifir10/{}/{}/{}/{}".format(weight, method, label, rd)
 
 
 def train_and_test(nb_epochs, weight, method, degree, random_seed, label):
@@ -62,7 +63,7 @@ def train_and_test(nb_epochs, weight, method, degree, random_seed, label):
         anomalous_label (int): int in range 0 to 10, is the class/digit
                                 which is considered outlier
     """
-    logger = logging.getLogger("GAN.train.mnist.{}.{}".format(method,label))
+    logger = logging.getLogger("GAN.train.cifir10.{}.{}".format(method,label))
 
     # Placeholders
     input_pl = tf.placeholder(tf.float32, shape=data.get_shape_input(), name="input")
@@ -316,9 +317,9 @@ def train_and_test(nb_epochs, weight, method, degree, random_seed, label):
         scores += batch_score[:size]
 
         prc_auc = do_prc(scores, testy,
-               file_name=r'gan/mnist/{}/{}/{}'.format(method, weight,
+               file_name=r'gan/cifir10/{}/{}/{}'.format(method, weight,
                                                      label),
-               directory=r'results/gan/mnist/{}/{}/'.format(method,
+               directory=r'results/gan/cifir10/{}/{}/'.format(method,
                                                            weight))
 
         print("Testing | PRC AUC = {:.4f}".format(prc_auc))

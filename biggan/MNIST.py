@@ -1,5 +1,7 @@
 import logging
 import numpy as np
+from tensorflow.keras.datasets import cifar10
+
 
 RANDOM_SEED = 42
 RNG = np.random.RandomState(42)
@@ -9,22 +11,24 @@ logger = logging.getLogger(__name__)
 
 def get_train(label, centered=False):
     """Get training dataset for MNIST"""
-    return _get_adapted_dataset("train", label, centered=centered)
+    # return _get_adapted_dataset("train", label, centered=centered)
+    return prepare_data("train", label, centered)
 
 
 def get_test(label, centered=False):
     """Get testing dataset for MNIST"""
-    return _get_adapted_dataset("test", label, centered=centered)
+    # return _get_adapted_dataset("test", label, centered=centered)
+    prepare_data('test', label, centered)
 
 
 def get_shape_input():
-    """Get shape of the dataset for MNIST"""
-    return (None, 28, 28, 1)
+    """Get shape of the dataset for CIFAR10"""
+    return (None, 32, 32, 1)
 
 
 def get_shape_input_flatten():
     """Get shape of the flatten dataset for MNIST"""
-    return (None, 784)
+    return (None, 1024)
 
 
 def get_shape_label():
@@ -35,6 +39,21 @@ def get_shape_label():
 def num_classes():
     """Get number of classes in MNIST dataset"""
     return 10
+
+
+def prepare_data(split, label=None, centered=False, flatten=False):
+    (x_train, y_train), (x_test, y_test) = cifar10.load_data()
+
+    if split == 'train':
+
+        if centered:
+            x_train = x_train * 2. - 1.
+
+        return x_train, y_train
+    elif split == 'test':
+        if centered:
+            x_test = x_train * 2. - 1.
+        return x_test, y_test
 
 
 def _get_adapted_dataset(split, label=None, centered=False, flatten=False):
@@ -91,7 +110,7 @@ def _get_adapted_dataset(split, label=None, centered=False, flatten=False):
         dataset[key_img] = dataset[key_img] * 2. - 1.
 
     if not flatten:
-        dataset[key_img] = dataset[key_img].reshape(-1, 28, 28, 1)
+        dataset[key_img] = dataset[key_img].reshape(-1, 32, 32, 1)
 
     dataset[key_lbl] = adapt_labels(dataset[key_lbl], label)
 

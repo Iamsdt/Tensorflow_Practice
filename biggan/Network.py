@@ -44,7 +44,7 @@ def generator(z_inp, is_training=False, getter=None, reuse=False):
                                                 name='batch_normalization')
             net = tf.nn.relu(net, name='relu')
 
-        net = tf.reshape(net, [-1, 7, 7, 128])
+        net = tf.reshape(net, [-1, 8, 8, 128])
 
         name_net = 'layer_3'
         with tf.variable_scope(name_net):
@@ -110,7 +110,7 @@ def discriminator(x_inp, is_training=False, getter=None, reuse=False):
                                                 name='batch_normalization')
             net = leakyReLu(net, 0.1, name='leaky_relu')
 
-        net = tf.reshape(net, [-1, 7 * 7 * 64])
+        net = tf.reshape(net, [-1, 8 * 8 * 64])
 
         name_net = 'layer_3'
         with tf.variable_scope(name_net):

@@ -36,7 +36,7 @@ def generator(z_inp, is_training=False, getter=None, reuse=False):
         name_net = 'layer_2'
         with tf.variable_scope(name_net):
             net = tf.layers.dense(net,
-                                  units=7 * 7 * 128,
+                                  units=8 * 8 * 128,
                                   kernel_initializer=init_kernel,
                                   name='fc')
             net = tf.layers.batch_normalization(net,
@@ -63,7 +63,7 @@ def generator(z_inp, is_training=False, getter=None, reuse=False):
         name_net = 'layer_4'
         with tf.variable_scope(name_net):
             net = tf.layers.conv2d_transpose(net,
-                                             filters=1,
+                                             filters=3,
                                              kernel_size=4,
                                              strides=2,
                                              padding='same',
